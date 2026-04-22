@@ -17,4 +17,12 @@ class Lista:
             atual = self.cabeca
             while atual.proximo:
                 atual = atual.proximo
-            atual.proximo = novo_nodo    
+            atual.proximo = novo_nodo
+
+    def exibir(self, valor):
+        atual = self.cabeca
+        while atual: 
+            print(atual.valor, end="->")
+            atual = atual.proximo
+        print("None")    
+        
