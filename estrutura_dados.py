@@ -75,49 +75,71 @@ class Lista:
         return lista_ordenada
 
     def quick_sort(self):
-        self.cabeca = self._quick_sort_recursivo (self.cabeca)
+        self.cabeca = self._quick_sort_recursivo(self.cabeca)
 
-    def _quick_sort_recursivo (self, c):
+    def _quick_sort_recursivo(self, c):
         if not c or not c.proximo:
             return c
 
-        pivo = c 
-        menores_cabeca = None 
-        maiores_cabeca = None 
+        pivo = c
+        menores_cabeca = None
+        maiores_cabeca = None
 
         atual = c.proximo
-        pivo.proximo = None 
+        pivo.proximo = None
 
         while atual:
-            proximo_nodo = atual.proximo 
+            proximo_nodo = atual.proximo
 
             if atual.valor < pivo.valor:
                 atual.proximo = menores_cabeca
-                menores_cabeca = atual 
+                menores_cabeca = atual
 
             else:
                 atual.proximo = maiores_cabeca
-                maiores_cabeca = atual 
+                maiores_cabeca = atual
 
             atual = proximo_nodo
 
         menores_ordenados = self._quick_sort_recursivo(menores_cabeca)
-        maiores_ordenados = self._quick_sort_recursivo(maiores_cabeca) 
+        maiores_ordenados = self._quick_sort_recursivo(maiores_cabeca)
 
         return self._conectar(menores_ordenados, pivo, maiores_ordenados)
-    
-    def _conectar(self, menores, pivo, maiores):
-        nova_cabeca = menores if menores else pivo 
 
-        if menores: 
+    def _conectar(self, menores, pivo, maiores):
+        nova_cabeca = menores if menores else pivo
+
+        if menores:
             temp = menores
             while tem.proximo:
-                temp = temp.proximo 
+                temp = temp.proximo
             temp.proximo = pivo
 
-        pivo.proximo = maiores 
+        pivo.proximo = maiores
 
         return nova_cabeca
 
+    def counting_sort(self):
+        if not self.cabeca:
+            return
 
+        max_valor = self.cabeca.valor
+        atual = self.cabeca
+        while atual:
+            if atual.valor > max_valor:
+                max_valor = atual.valor
+            atual = atual.proximo
 
+        contagem = [0] * (max_valor + 1)
+
+        atual = self.cabeca
+        while atual:
+            contagem[atual.valor] += 1
+            atual = atual.proximo
+
+        atual = self.cabeca
+        for numero in range(len(contagem)):
+            while contagem[numero] > 0:
+                atual.valor = numero
+                contagem[numero] -= 1
+                atual = atual.proximo
