@@ -56,8 +56,8 @@ class Lista:
 
             return resultado
 
-    def merge_sort(self)
-    self.cabeca = self.merge_sort_recursivo(self.cabeca)
+    def merge_sort(self):
+        self.cabeca = self.merge_sort_recursivo(self.cabeca)
 
     def _merge_sort_recursivo(self, c):
         if c is None or c.proximo is None:
@@ -73,3 +73,51 @@ class Lista:
 
         lista_ordenada = self._mesclar(esquerda, direita)
         return lista_ordenada
+
+    def quick_sort(self):
+        self.cabeca = self._quick_sort_recursivo (self.cabeca)
+
+    def _quick_sort_recursivo (self, c):
+        if not c or not c.proximo:
+            return c
+
+        pivo = c 
+        menores_cabeca = None 
+        maiores_cabeca = None 
+
+        atual = c.proximo
+        pivo.proximo = None 
+
+        while atual:
+            proximo_nodo = atual.proximo 
+
+            if atual.valor < pivo.valor:
+                atual.proximo = menores_cabeca
+                menores_cabeca = atual 
+
+            else:
+                atual.proximo = maiores_cabeca
+                maiores_cabeca = atual 
+
+            atual = proximo_nodo
+
+        menores_ordenados = self._quick_sort_recursivo(menores_cabeca)
+        maiores_ordenados = self._quick_sort_recursivo(maiores_cabeca) 
+
+        return self._conectar(menores_ordenados, pivo, maiores_ordenados)
+    
+    def _conectar(self, menores, pivo, maiores):
+        nova_cabeca = menores if menores else pivo 
+
+        if menores: 
+            temp = menores
+            while tem.proximo:
+                temp = temp.proximo 
+            temp.proximo = pivo
+
+        pivo.proximo = maiores 
+
+        return nova_cabeca
+
+
+
