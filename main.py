@@ -1,4 +1,4 @@
-from estrutura_dados import Lista 
+from estrutura_dados import Lista
 
 print("--- Sistema de Processamento de Dados ---")
 meu_sistema = Lista()
@@ -13,3 +13,8 @@ print("Olhando o estado atual da Lista")
 meu_sistema.exibir()
 
 
+print("\nOrdenando com Merge Sort.")
+meu_sistema.merge_sort()
+
+print("Resultado final:")
+meu_sistema.exibir()

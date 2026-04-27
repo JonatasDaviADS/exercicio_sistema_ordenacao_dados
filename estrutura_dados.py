@@ -1,10 +1,10 @@
 class Nodo:
     def __init__(self, valor):
-        self.valor = valor 
+        self.valor = valor
         self.proximo = None
 
 
-class Lista: 
+class Lista:
     def __init__(self):
         self.cabeca = None
 
@@ -21,38 +21,55 @@ class Lista:
 
     def exibir(self, valor):
         atual = self.cabeca
-        while atual: 
+        while atual:
             print(atual.valor, end="->")
             atual = atual.proximo
-        print("None")    
-        
+        print("None")
 
     def _get_meio(self, cabeca):
         if not cabeca:
             return cabeca
 
         lento = cabeca
-        rapido = cabeca 
+        rapido = cabeca
 
         while rapido.proximo and rapido.proximo.proximo:
-            lento = lento.proximo 
+            lento = lento.proximo
             rapido = rapido.proximo.proximo
 
-        return lento      
-    
-    def _mesclar (self, esquerda, direita):
+        return lento
 
-        if not esquerda: 
-            return direita 
-        if not direita: 
+    def _mesclar(self, esquerda, direita):
+
+        if not esquerda:
+            return direita
+        if not direita:
             return esquerda
-        
-        if esquerda.valor <= direita.valor: 
+
+        if esquerda.valor <= direita.valor:
             resultado = esquerda
             resultado.proximo = self._mesclar(esquerda.proximo, direita)
 
-        else: 
-            resultado = direita 
+        else:
+            resultado = direita
             resultado.proximo = self._mesclar(esquerda, direita.proximo)
 
             return resultado
+
+    def merge_sort(self)
+    self.cabeca = self.merge_sort_recursivo(self.cabeca)
+
+    def _merge_sort_recursivo(self, c):
+        if c is None or c.proximo is None:
+            return c
+
+        meio = self._get_meio(c)
+        proximo_do_meio = meio.proximo
+
+        meio.proximo = None
+
+        esquerda = self._merge_sort_recursivo(c)
+        direita = self._merge_sort_recursivo(proximo_do_meio)
+
+        lista_ordenada = self._mesclar(esquerda, direita)
+        return lista_ordenada
