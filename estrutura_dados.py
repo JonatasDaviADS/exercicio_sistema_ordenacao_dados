@@ -111,7 +111,7 @@ class Lista:
 
         if menores:
             temp = menores
-            while tem.proximo:
+            while temp.proximo:
                 temp = temp.proximo
             temp.proximo = pivo
 
@@ -143,3 +143,45 @@ class Lista:
                 atual.valor = numero
                 contagem[numero] -= 1
                 atual = atual.proximo
+
+    def radix_sort(self):
+        if not self.cabeca:
+            return
+
+        max_valor = self.cabeca.valor
+        atual = self.cabeca
+        while atual:
+            if atual.valor > max_valor:
+                max_valor = atual.valor
+            atual = atual.proximo
+
+            exp = 1
+            while max_valor // exp > 0:
+                self.counting_sort_para_radix(exp)
+                exp *= 10
+
+    def _counting_sort_para_radix(self, exp):
+        baldes = [Lista() for _ in range(10)]
+
+        atual = self.cabeca
+        while atual:
+            digito = (atual.valor // exp) % 10
+            baldes[digito].adicionar(atual.valor)
+            atual = atual.proximo
+
+        nova_cabeca = None
+        ultimo = None
+
+        for balde in baldes:
+            if balde.cabeca:
+                if not nova_cabeca:
+                    nova_cabeca = balde.cabeca
+                else:
+                    ultimo.proximo = balde.cabeca
+
+                temp = balde.cabeca
+                while temp.proximo:
+                    temp = temp.proximo
+                ultimo = temp
+
+        self.cabeca = nova_cabeca
